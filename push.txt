@@ -1,0 +1,14 @@
+将vscode 代码推送到 github 
+
+在vscode中，当前目录下，打开git bash终端
+
+1.eval "$(ssh-agent -s)"              启动 SSH agent
+2.ssh-add ~/hector                    加载私钥
+3.cd /c/Users/XXX/XXX/  	          确保在正确的项目目录
+4.git add .                           将所有修改过的文件添加到 Git 的暂存区。
+5.git commit -m "提交的信息"           将暂存区的修改保存到本地仓库。
+6.git push origin HEAD:main           将本地 `master` 分支的最新提交推送到 GitHub 远程仓库的 `main` 分支
+
+
+git pull origin main                  获取远程 `main` 分支的最新更改并合并到你的本地分支，避免冲突。
+git status                            查看状态 (可选但推荐)
