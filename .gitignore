@@ -7,3 +7,8 @@ test*
 temp*
 work*
 push.txt
+
+#忽略自己
+.gitignore
+
+DS/push.txt
