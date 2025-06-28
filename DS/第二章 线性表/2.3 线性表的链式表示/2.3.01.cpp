@@ -277,23 +277,66 @@ void DestoryList(LinkList &L)//释放单链表，递归
 }
 
 //删除所有值为e的结点，保证删除后单链表的连续性
-LinkList Delete_same(LinkList &L,ElemType e)//递归删除
+// LinkList Delete_same(LinkList &L,ElemType e)//递归删除
+// {
+//     LNode *p;
+//     if(L == NULL) //递归结束条件
+//         return NULL;
+//     if(L->data == e)//当前结点值为e,要被删除
+//     {
+//         p=L;
+//         L=L->next; //后移L
+//         free(p);
+//         return Delete_same(L,e);
+//     }
+//     else//值不是e，则判断它的下一个结点
+//     {
+//         //将后面修改后的结果接在当前位置
+//         L->next=Delete_same(L->next,e);//回溯过程重新连接单链表
+//         return L;
+//     }
+// }
+
+// void Delete_Same(LinkList &L,ElemType e)
+// {
+//     LNode *p=L->next,*pre=L;
+//     LNode *q;//临时变量用来释放
+
+//     while(p!=nullptr)
+//     {
+//         if(p->data == e)//让p移向下一个结点
+//         {
+//             q=p;//临时存储p的地址
+//             pre->next=p->next;
+//             p=p->next;
+//             free(q);
+//         }
+//         else
+//         {
+//             pre=p;
+//             p=p->next; // 好像没有判断p的next是否存在？
+//         }
+//     }
+// }
+
+void Delete_Same(LinkList &L,ElemType e)//采用尾插法建立单链表：值!=e的结点重新链接到L之后
 {
-    LNode *p;
-    if(L == NULL) //递归结束条件
-        return NULL;
-    if(L->data == e)//当前结点值为e,要被删除
+    LNode *p=L->next,*r=L;
+    LNode *q;
+    while(p != nullptr)
     {
-        p=L;
-        L=L->next; //后移L
-        free(p);
-        return Delete_same(L,e);
-    }
-    else//值不是e，则判断它的下一个结点
-    {
-        //将后面修改后的结果接在当前位置
-        L->next=Delete_same(L->next,e);//回溯过程重新连接单链表
-        return L;
+        if(p->data == e)
+        {
+            q=p;
+            p=p->next;
+            free(q);
+        }
+        else //关键:借助r,从L出重新建立单链表（排除值为e的元素）
+        {
+            r->next=p;
+            r=p;
+            p=p->next;
+        }
     }
 }
 
